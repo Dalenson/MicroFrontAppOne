@@ -3,8 +3,15 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { IframeMessageProxy } from 'iframe-message-proxy';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+IframeMessageProxy.listen();
+IframeMessageProxy.config({
+    prefix: 'customMessage:',
+});
+
 root.render(
   <React.StrictMode>
     <App />

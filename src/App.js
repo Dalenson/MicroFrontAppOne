@@ -1,25 +1,28 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState } from 'react';
+import { IframeMessageProxy } from 'iframe-message-proxy';
 
 function App() {
+  
+  const [mensagem, setMensagem] = useState();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div>
+      <header>
+        <p>Aplicativo um</p>
+        <p>{mensagem}</p>
+        <button onClick={clickButton}>Buscar mensagem Satélite</button>
       </header>
     </div>
   );
+
+  async function clickButton() {
+    const {response} = await IframeMessageProxy.sendMessage({
+      action: 'getDados',
+      content: 'Rquisição',
+    });
+    setMensagem(response.name,toString());
+  }
 }
 
 export default App;
